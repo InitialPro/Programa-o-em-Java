@@ -1,3 +1,5 @@
+package Os_Guardioes_de_Eldoria;
+
 public class Guerreiro extends Personagem {
     
     // O construtor do Guerreiro já define a "classe" automaticamente no super()

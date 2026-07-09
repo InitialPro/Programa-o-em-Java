@@ -1,4 +1,5 @@
-// Arquivo: Mago.java
+package Os_Guardioes_de_Eldoria;
+
 public class Mago extends Personagem {
     
     public Mago(String nome, int nivel, int pontosDeVida, double poderBase) {

@@ -1,3 +1,5 @@
+package Os_Guardioes_de_Eldoria;
+
 public class Arena {
     
     // Método que recebe dois objetos complexos (Grupos) como parâmetro

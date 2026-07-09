@@ -1,3 +1,5 @@
+package Os_Guardioes_de_Eldoria;
+
 // Importação necessária para a interface Comparable funcionar nativamente
 public abstract class Personagem implements Comparable<Personagem> {
     

@@ -1,13 +1,14 @@
+package Os_Guardioes_de_Eldoria_A_Saga_Continua;
+
 public class Mago extends Personagem {
     
-    // Construtor utilizando o 'super' para acessar a superclasse
     public Mago(String nome, String classe, int nivel, int pontosDeVida, double poderBase) {
         super(nome, classe, nivel, pontosDeVida, poderBase);
     }
 
-    // Implementação da habilidade específica
+    // NOME CORRIGIDO AQUI
     @Override
-    public void usarHabilidade() {
+    public void usarHabilidadeEspecial() {
         System.out.println("Ação: O Mago " + getNome() + " conjura uma tempestade arcana devastadora!");
     }
 }
