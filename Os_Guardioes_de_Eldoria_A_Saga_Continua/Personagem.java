@@ -17,13 +17,16 @@ public abstract class Personagem {
         this.poderBase = poderBase;
     }
 
-    // NOME CORRIGIDO AQUI PARA ATENDER AO SEU SISTEMA
     public abstract void usarHabilidadeEspecial();
 
+    // Retornamos ao formato em bloco para bater com o exemplo de saída do Nível Mestre
     @Override
     public String toString() {
-        return String.format("[%s] %s | Nível: %d | HP: %d | Poder: %.2f", 
-                             classe, nome, nivel, pontosDeVida, poderBase);
+        return "Nome: " + nome + "\n" +
+               "Classe: " + classe + "\n" +
+               "Nível: " + nivel + "\n" +
+               "Pontos de Vida: " + pontosDeVida + "\n" +
+               "Poder Base: " + poderBase;
     }
 
     @Override

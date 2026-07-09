@@ -6,9 +6,8 @@ public class Guerreiro extends Personagem {
         super(nome, classe, nivel, pontosDeVida, poderBase);
     }
 
-    // NOME CORRIGIDO AQUI
     @Override
     public void usarHabilidadeEspecial() {
-        System.out.println("Ação: O Guerreiro " + getNome() + " desfere um golpe esmagador com sua espada pesada!");
+        System.out.println("Habilidade: " + getNome() + " avança com um ataque devastador!");
     }
 }

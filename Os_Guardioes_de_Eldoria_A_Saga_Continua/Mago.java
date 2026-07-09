@@ -6,9 +6,8 @@ public class Mago extends Personagem {
         super(nome, classe, nivel, pontosDeVida, poderBase);
     }
 
-    // NOME CORRIGIDO AQUI
     @Override
     public void usarHabilidadeEspecial() {
-        System.out.println("Ação: O Mago " + getNome() + " conjura uma tempestade arcana devastadora!");
+        System.out.println("Habilidade: " + getNome() + " conjura um feitiço de proteção!");
     }
 }

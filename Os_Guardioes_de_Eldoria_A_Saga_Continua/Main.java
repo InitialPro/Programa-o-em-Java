@@ -1,32 +1,48 @@
 package Os_Guardioes_de_Eldoria_A_Saga_Continua;
 
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
-        Mago mago = new Mago("Eldor", "Mago do Fogo", 10, 150, 85.5);
-        Guerreiro guerreiro = new Guerreiro("Thogar", "Guerreiro Defensor", 12, 250, 70.0);
-
-        System.out.println("--- Exibição dos Personagens ---");
-        System.out.println(mago);
-        mago.usarHabilidadeEspecial(); // CHAMADA CORRIGIDA
+        System.out.println("=== BEM-VINDOS AO REINO DE ELDORIA ===");
         
-        System.out.println(guerreiro);
-        guerreiro.usarHabilidadeEspecial(); // CHAMADA CORRIGIDA
-        System.out.println();
+        // Polimorfismo Dinâmico: Uma lista de "Personagens" que guarda vários subtipos
+        ArrayList<Personagem> herois = new ArrayList<>();
+        
+        // Cadastrando múltiplos personagens (2 Magos e 2 Guerreiros)
+        herois.add(new Mago("Eldoran", "Mago", 7, 60, 18.0));
+        herois.add(new Guerreiro("Arthemis", "Guerreiro", 8, 120, 25.0));
+        herois.add(new Mago("Lyra", "Mago das Sombras", 10, 50, 30.0));
+        herois.add(new Guerreiro("Kael", "Guerreiro Defensor", 7, 150, 20.0));
 
-        System.out.println("--- Teste de Validações ---");
-        try {
-            System.out.println("Tentando aplicar dano fatal (-50) no HP do Guerreiro...");
-            guerreiro.setPontosDeVida(-50);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Erro bloqueado pelo sistema: " + e.getMessage());
+        // Iterando sobre a lista demonstrando polimorfismo dinâmico
+        int contador = 1;
+        for (Personagem heroi : herois) {
+            System.out.println("--- Herói " + contador + " ---");
+            System.out.println(heroi.toString());
+            
+            // O Java descobre sozinho qual versão do método rodar
+            heroi.usarHabilidadeEspecial();
+            
+            // Verificação de Tipos usando instanceof
+            if (heroi instanceof Mago) {
+                System.out.println("O personagem " + heroi.getNome() + " é um Mago de nível " + heroi.getNivel() + ".");
+            } else if (heroi instanceof Guerreiro) {
+                System.out.println("O personagem " + heroi.getNome() + " é um Guerreiro de nível " + heroi.getNivel() + ".");
+            }
+            
+            System.out.println(); // Linha em branco para separar
+            contador++;
         }
-        System.out.println();
 
-        System.out.println("--- Teste de Comparação (equals) ---");
-        Mago magoClone = new Mago("Eldor", "Mago do Fogo", 99, 999, 500.0);
+        // Demonstração de Comparação usando equals()
+        Personagem heroi1 = herois.get(0); // Eldoran
+        Personagem heroi2 = herois.get(1); // Arthemis
         
-        System.out.println("Mago 1: " + mago.toString());
-        System.out.println("Mago 2 (Clone): " + magoClone.toString());
-        System.out.println("Mago 1 é a mesma entidade que Mago 2? " + mago.equals(magoClone));
+        if (heroi1.equals(heroi2)) {
+            System.out.println("Comparação: " + heroi1.getNome() + " e " + heroi2.getNome() + " são iguais.");
+        } else {
+            System.out.println("Comparação: " + heroi1.getNome() + " e " + heroi2.getNome() + " são diferentes.");
+        }
     }
 }
