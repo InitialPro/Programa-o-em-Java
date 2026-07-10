@@ -18,11 +18,26 @@ public class Main {
         System.out.println("=== OPERAÇÕES DE ROTINA (POLIMORFISMO) ===");
         System.out.println();
         // 2. Iterando sobre a equipe
+        int indice = 0; // Variável para controlar a posição na lista
+
         for (Colaborador c : equipe) {
-            c.aumentarSalario(10.0); // Aumento de 10%
+            double percentualAumento;
+
+            // Verifica a posição (índice) para definir a porcentagem
+            if (indice == 0) {
+                percentualAumento = 15.0; // Primeiro colaborador (Alice)
+            } else if (indice == 1) {
+                percentualAumento = 12.0; // Segundo colaborador (Bob)
+            } else {
+                percentualAumento = 10.0; // Do terceiro em diante (Carlos, etc.)
+            }
+
+            c.aumentarSalario(percentualAumento); // Aumento de 10%
             c.executarTarefa();      // Comportamento muda dependendo do objeto real
             c.exibirDados();
             System.out.println();
+
+            indice++;
         }
 
         System.out.println("=== AUDITORIA DO GERENTE (INTERFACE) ===");
