@@ -1,37 +1,61 @@
 package CacaAoTesouro;
 
+import java.util.concurrent.Semaphore;
+
+/**
+ * Classe base abstrata que define os comportamentos comuns a todos os exploradores.
+ */
 public abstract class Explorador {
     protected String nome;
     protected String tipo;
     protected int prioridade;
-    protected String tarefa;
+    
+    protected Tarefa tarefa;
+    protected Semaphore semaforo;
+    protected Sinalizador sinalizador;
 
-    public Explorador(String nome, String tipo, int prioridade, String tarefa) {
+    /**
+     * Construtor base para instanciar um explorador com todos os seus recursos.
+     */
+    public Explorador(String nome, String tipo, int prioridade, Tarefa tarefa, Semaphore semaforo, Sinalizador sinalizador) {
         this.nome = nome;
         this.tipo = tipo;
         this.prioridade = prioridade;
         this.tarefa = tarefa;
+        this.semaforo = semaforo;
+        this.sinalizador = sinalizador;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
+    /**
+     * Retorna a prioridade que esta thread terá no sistema.
+     */
     public int getPrioridade() {
         return prioridade;
     }
 
-    // Método que as subclasses deverão implementar
+    /**
+     * Método abstrato que força cada tipo específico de explorador a implementar
+     * a sua própria maneira de executar a tarefa.
+     */
     public abstract void executarTarefa() throws TarefaInvalidaException;
     
-    // Método auxiliar que valida sem usar o "if" tradicional (respeitando a regra do desafio)
+    /**
+     * Valida a tarefa sem usar estruturas de decisão (if/else), conforme regra do Nível Novato.
+     * Utiliza recursos nativos do Java que lançam exceções automaticamente se os dados forem inválidos.
+     * 
+     * @throws TarefaInvalidaException Se a tarefa for nula ou sua descrição for vazia.
+     */
     protected void validarTarefa() throws TarefaInvalidaException {
         try {
-            // Se for nulo, lança NullPointerException automaticamente
+            // Lança NullPointerException se a 'tarefa' ou a 'descricao' forem nulas
             java.util.Objects.requireNonNull(tarefa);
-            // Se estiver vazia, forçamos um erro pegando um caractere que não existe
-            tarefa.charAt(0); 
+            java.util.Objects.requireNonNull(tarefa.getDescricao());
+            
+            // Lança StringIndexOutOfBoundsException se a string for vazia ("")
+            tarefa.getDescricao().charAt(0); 
+            
         } catch (NullPointerException | StringIndexOutOfBoundsException e) {
+            // Captura as exceções nativas e as converte na nossa exceção temática de negócio
             throw new TarefaInvalidaException("Tarefa inválida para " + nome);
         }
     }
