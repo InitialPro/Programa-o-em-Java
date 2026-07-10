@@ -17,12 +17,16 @@ public abstract class Colaborador {
     public int getMatricula() { return matricula; }
     public double getSalario() { return salario; }
 
-    // Método para aumentar o salário com validação
-    public void aumentarSalario(double percentual) {
+    // Método aumentar Salário
+    public void aumentarSalario(double percentual){
         if (percentual > 0) {
-            this.salario += this.salario * (percentual / 100);
-        } else {
-            System.out.println("Percentual inválido. O aumento deve ser positivo.");
+            double salarioAntigo = salario;
+            double aumento = salario * (percentual / 100);
+            salario += aumento;
+            System.out.println("Salário de " + salarioAntigo + " aumento em " + percentual + 
+                              "%. Novo Salário: R$ " + String.format("%.2f", salario));
+        }else{
+            System.out.println("Erro: Percentual de aumento deve ser positivo!");
         }
     }
 
@@ -39,6 +43,8 @@ public abstract class Colaborador {
         if (valor > 0) {
             this.salario += valor;
             System.out.println("Bônus de R$ " + valor + " aplicado com sucesso a " + this.nome + ".");
+        } else{
+            System.out.println("Valor de bonus deve ser positivo!");
         }
     }
 }

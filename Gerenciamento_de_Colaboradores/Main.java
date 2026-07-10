@@ -16,6 +16,7 @@ public class Main {
         equipe.add(gerente);
 
         System.out.println("=== OPERAÇÕES DE ROTINA (POLIMORFISMO) ===");
+        System.out.println();
         // 2. Iterando sobre a equipe
         for (Colaborador c : equipe) {
             c.aumentarSalario(10.0); // Aumento de 10%
