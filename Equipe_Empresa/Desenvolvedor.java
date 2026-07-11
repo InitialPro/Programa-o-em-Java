@@ -1,4 +1,4 @@
-package Minsait;
+package Equipe_Empresa;
 
 public class Desenvolvedor extends Funcionario {
 

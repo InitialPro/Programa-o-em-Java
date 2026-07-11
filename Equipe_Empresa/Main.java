@@ -1,4 +1,4 @@
-package Minsait;
+package Equipe_Empresa;
 
 import java.util.ArrayList;
 
