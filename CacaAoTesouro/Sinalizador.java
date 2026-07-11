@@ -1,35 +1,35 @@
 package CacaAoTesouro;
 
 /**
- * Monitor do sistema. Responsável por sincronizar a largada de todos os exploradores.
- * Garante que nenhuma thread entre na ilha antes do líder dar a ordem.
+ * Monitor que atua como uma barreira de largada para as threads.
+ * Utiliza os métodos wait() e notifyAll() para sincronizar o início da expedição.
  */
 public class Sinalizador {
     private boolean sinalAberto = false;
 
     /**
-     * Método onde as threads ficam "dormindo" aguardando a liberação.
-     * O uso do 'synchronized' garante que apenas uma thread por vez acesse o método para verificar o sinal.
+     * Trava a thread atual em estado de espera (WAITING) até que o sinal seja aberto.
+     * O 'synchronized' garante que a verificação da variável seja thread-safe.
      * 
-     * @param nomeExplorador O nome da thread/explorador que está aguardando.
-     * @throws InterruptedException Se a thread for interrompida enquanto aguarda.
+     * @param nome O nome do explorador que acabou de chegar ao acampamento.
+     * @throws InterruptedException Caso a thread seja interrompida enquanto dorme.
      */
-    public synchronized void aguardarSinal(String nomeExplorador) throws InterruptedException {
-        System.out.println(nomeExplorador + " no acampamento aguardando a largada...");
+    public synchronized void aguardarSinal(String nome) throws InterruptedException {
+        System.out.println(nome + " no acampamento aguardando a largada...");
         
-        // Loop de verificação (boa prática com wait): se o sinal não está aberto, a thread dorme.
+        // Loop while evita o "spurious wakeup" (quando a thread acorda sem motivo na JVM)
         while (!sinalAberto) {
-            wait(); // A thread pausa a execução aqui e solta a trava do objeto
+            wait(); // Libera o lock da classe e põe a thread para dormir
         }
     }
 
     /**
-     * Método acionado pelo líder (a thread principal) para liberar a expedição.
-     * Altera a variável de controle e acorda todas as threads que estão presas no wait().
+     * Método invocado pela thread principal (Líder) para liberar a barreira.
+     * Altera a condição e desperta todas as threads que estavam presas no wait().
      */
     public synchronized void darSinal() {
-        System.out.println("\n[SINAL VERDE] O líder liberou a expedição! Corram!\n");
-        sinalAberto = true; // Muda o estado para que as threads passem no while() do método anterior
-        notifyAll(); // Desperta todas as threads que estavam aguardando
+        System.out.println("\n[SINAL VERDE] O líder liberou a expedição! A corrida começou!\n");
+        sinalAberto = true;
+        notifyAll(); // Acorda todas as threads em espera
     }
 }

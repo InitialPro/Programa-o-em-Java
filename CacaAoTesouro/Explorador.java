@@ -1,62 +1,88 @@
 package CacaAoTesouro;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.Semaphore;
 
 /**
- * Classe base abstrata que define os comportamentos comuns a todos os exploradores.
+ * Classe base que define um explorador. Implementa Callable para poder 
+ * retornar um valor (Double) e lançar exceções diretamente para o ExecutorService.
  */
-public abstract class Explorador {
+public abstract class Explorador implements Callable<Double> {
     protected String nome;
-    protected String tipo;
-    protected int prioridade;
+    protected String especialidade;
     
-    protected Tarefa tarefa;
+    protected Missao missao;
     protected Semaphore semaforo;
     protected Sinalizador sinalizador;
 
     /**
-     * Construtor base para instanciar um explorador com todos os seus recursos.
+     * Construtor base para instanciar o explorador com suas dependências de concorrência.
+     * 
+     * @param nome Nome do explorador.
+     * @param especialidade O tipo de explorador (Rastreador, Saqueador, etc).
+     * @param missao A missão imutável designada a ele.
+     * @param semaforo O controle de limite de pessoas na trilha.
+     * @param sinalizador O monitor de largada.
      */
-    public Explorador(String nome, String tipo, int prioridade, Tarefa tarefa, Semaphore semaforo, Sinalizador sinalizador) {
+    public Explorador(String nome, String especialidade, Missao missao, Semaphore semaforo, Sinalizador sinalizador) {
         this.nome = nome;
-        this.tipo = tipo;
-        this.prioridade = prioridade;
-        this.tarefa = tarefa;
+        this.especialidade = especialidade;
+        this.missao = missao;
         this.semaforo = semaforo;
         this.sinalizador = sinalizador;
     }
 
     /**
-     * Retorna a prioridade que esta thread terá no sistema.
+     * Valida os dados da missão utilizando recursos nativos da API do Java para evitar 
+     * o uso de estruturas if/else, forçando exceções quando os dados são inválidos.
+     * 
+     * @throws TarefaInvalidaException Se a missão for nula ou a descrição for vazia.
      */
-    public int getPrioridade() {
-        return prioridade;
+    protected void validarMissao() throws TarefaInvalidaException {
+        try {
+            java.util.Objects.requireNonNull(missao);
+            java.util.Objects.requireNonNull(missao.getDescricao());
+            missao.getDescricao().charAt(0); // Tenta ler a primeira letra para validar se não está vazio
+        } catch (NullPointerException | StringIndexOutOfBoundsException e) {
+            throw new TarefaInvalidaException("Missão corrompida designada para: " + nome);
+        }
     }
 
     /**
-     * Método abstrato que força cada tipo específico de explorador a implementar
-     * a sua própria maneira de executar a tarefa.
-     */
-    public abstract void executarTarefa() throws TarefaInvalidaException;
-    
-    /**
-     * Valida a tarefa sem usar estruturas de decisão (if/else), conforme regra do Nível Novato.
-     * Utiliza recursos nativos do Java que lançam exceções automaticamente se os dados forem inválidos.
+     * Método abstrato onde cada subclasse definirá sua própria fórmula matemática 
+     * e tempo de simulação para gerar os pontos.
      * 
-     * @throws TarefaInvalidaException Se a tarefa for nula ou sua descrição for vazia.
+     * @return Os pontos obtidos na missão.
+     * @throws InterruptedException Se a thread for interrompida durante o Thread.sleep().
      */
-    protected void validarTarefa() throws TarefaInvalidaException {
+    protected abstract Double calcularPontos() throws InterruptedException;
+
+    /**
+     * Método principal executado pelo ExecutorService. 
+     * Orquestra a espera do sinal, a validação, a disputa pelo semáforo e a execução.
+     * 
+     * @return O total de pontos calculados pela subclasse.
+     * @throws Exception Caso ocorra erro de validação ou interrupção.
+     */
+    @Override
+    public Double call() throws Exception { 
+        // 1. Aguarda a liberação do líder (Monitor)
+        sinalizador.aguardarSinal(nome); 
+        
+        // 2. Valida os dados ANTES de tentar ocupar a trilha
+        validarMissao(); 
+        
+        System.out.println(nome + " na trilha aguardando permissão de exploração...");
+        
+        // 3. Tenta pegar uma das permissões do semáforo. Bloqueia se estiver cheio.
+        semaforo.acquire(); 
+        
         try {
-            // Lança NullPointerException se a 'tarefa' ou a 'descricao' forem nulas
-            java.util.Objects.requireNonNull(tarefa);
-            java.util.Objects.requireNonNull(tarefa.getDescricao());
-            
-            // Lança StringIndexOutOfBoundsException se a string for vazia ("")
-            tarefa.getDescricao().charAt(0); 
-            
-        } catch (NullPointerException | StringIndexOutOfBoundsException e) {
-            // Captura as exceções nativas e as converte na nossa exceção temática de negócio
-            throw new TarefaInvalidaException("Tarefa inválida para " + nome);
+            // 4. Executa a lógica de cálculo definida na subclasse
+            return calcularPontos();
+        } finally {
+            // 5. Garante que a permissão seja devolvida, mesmo se houver erro
+            semaforo.release(); 
         }
     }
 }
