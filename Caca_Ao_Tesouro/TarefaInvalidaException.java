@@ -1,4 +1,4 @@
-package CacaAoTesouro;
+package Caca_Ao_Tesouro;
 
 /**
  * Exceção personalizada (Checked Exception) para validar as missões.

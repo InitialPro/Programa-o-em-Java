@@ -1,4 +1,4 @@
-package CacaAoTesouro;
+package Caca_Ao_Tesouro;
 
 /**
  * Classe que representa a tarefa a ser executada na ilha.

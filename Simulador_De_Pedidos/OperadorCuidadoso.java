@@ -1,4 +1,4 @@
-package SimuladorDePedidos;
+package Simulador_De_Pedidos;
 
 public class OperadorCuidadoso implements Runnable {
     private final FilaPedidos fila;

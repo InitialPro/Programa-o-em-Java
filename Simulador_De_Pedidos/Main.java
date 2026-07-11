@@ -1,4 +1,4 @@
-package SimuladorDePedidos;
+package Simulador_De_Pedidos;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {

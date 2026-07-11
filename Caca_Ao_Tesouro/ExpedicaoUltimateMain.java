@@ -1,4 +1,4 @@
-package CacaAoTesouro;
+package Caca_Ao_Tesouro;
 
 import java.util.ArrayList;
 import java.util.List;

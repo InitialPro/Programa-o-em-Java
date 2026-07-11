@@ -1,4 +1,4 @@
-package SistemaRelatorioFinanceiro;
+package Sistema_Relatorio_Financeiro;
 
 /**
  * Classe imutável que representa um relatório financeiro.

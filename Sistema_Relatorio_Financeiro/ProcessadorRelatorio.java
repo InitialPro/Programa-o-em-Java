@@ -1,4 +1,4 @@
-package SistemaRelatorioFinanceiro;
+package Sistema_Relatorio_Financeiro;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;

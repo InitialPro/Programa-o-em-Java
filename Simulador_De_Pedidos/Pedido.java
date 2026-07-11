@@ -1,4 +1,4 @@
-package SimuladorDePedidos;
+package Simulador_De_Pedidos;
 
 public final class Pedido {
     // Atributos finais garantem que não podem ser modificados após a inicialização

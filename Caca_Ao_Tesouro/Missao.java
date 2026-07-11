@@ -1,4 +1,4 @@
-package CacaAoTesouro;
+package Caca_Ao_Tesouro;
 
 /**
  * Classe imutável que representa uma missão na ilha.

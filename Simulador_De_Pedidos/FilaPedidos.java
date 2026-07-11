@@ -1,4 +1,4 @@
-package SimuladorDePedidos;
+package Simulador_De_Pedidos;
 
 import java.util.LinkedList;
 import java.util.Queue;

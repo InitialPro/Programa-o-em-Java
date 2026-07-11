@@ -1,4 +1,4 @@
-package CacaAoTesouro;
+package Caca_Ao_Tesouro;
 
 /**
  * Monitor que atua como uma barreira de largada para as threads.
