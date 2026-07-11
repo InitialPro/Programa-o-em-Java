@@ -1,0 +1,39 @@
+{
+  // Define o nome amigável do seu ambiente no GitHub Codespaces / VS Code
+  "name": "Java & Apache Derby Environment",
+
+  // Baixa o sistema operacional Linux configurado com o Java 17 oficial da Microsoft
+  "image": "mcr.microsoft.com/devcontainers/java:17",
+  
+  // Instala a ferramenta Git LFS automaticamente para evitar erros ao fazer Push de projetos pesados
+  "features": {
+    "ghcr.io/devcontainers/features/git-lfs:1": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      // Instala automaticamente as extensões necessárias para o seu projeto
+      "extensions": [
+        "vscjava.vscode-java-pack",      // Suporte completo para desenvolvimento em Java
+        "mtxr.sqltools",                 // Interface gráfica para gerenciar bancos de dados no VS Code
+        "mtxr.sqltools-driver-derby"     // Conector específico para fazer o SQLTools falar com o Derby
+      ]
+    }
+  },
+
+  // Libera a porta padrão do Derby para que seu código Java consiga conectar ao banco de dados
+  "forwardPorts": [1527],
+
+  // Configura variáveis no sistema para que você possa digitar os comandos do Derby de qualquer lugar no terminal
+  "remoteEnv": {
+    "DERBY_HOME": "${containerWorkspaceFolder}/derby",
+    "PATH": "${containerWorkspaceFolder}/derby/bin:${env:PATH}"
+  },
+
+  // Sequência de comandos automatizados que rodam ao criar o contêiner:
+  // 1. wget: Baixa o arquivo compactado do Apache Derby
+  // 2. tar -xf: Extrai (descompacta) o arquivo que acabou de ser baixado
+  // 3. mv: Renomeia a pasta gigante extraída simplesmente para 'derby'
+  // 4. rm: Exclui o arquivo compactado (.tar.gz) original para manter a pasta limpa
+  "postCreateCommand": "wget https://archive.apache.org/dist/db/derby/db-derby-10.16.1.1/db-derby-10.16.1.1-bin.tar.gz && tar -xf db-derby-10.16.1.1-bin.tar.gz && mv db-derby-10.16.1.1-bin derby && rm db-derby-10.16.1.1-bin.tar.gz"
+}

@@ -1,0 +1,3 @@
+# Ignorar arquivos e downloads do Apache Derby
+derby/
+*.tar.gz
