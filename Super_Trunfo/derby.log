@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Jul 12 12:50:16 UTC 2026:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-019f-5660-daa8-000007d187f8 
+on database directory /workspaces/Programa-o-em-Java/banco_supertrunfo with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@639fee48 
+Loaded from file:/workspaces/Programa-o-em-Java/Super_Trunfo/derby/lib/derby.jar
+java.vendor=Debian
+java.runtime.version=21.0.11+10-1-deb13u2-Debian
+user.dir=/workspaces/Programa-o-em-Java
+os.name=Linux
+os.arch=amd64
+os.version=6.8.0-1052-azure
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
