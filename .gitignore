@@ -3,3 +3,4 @@ derby/
 *.tar.gz
 Super_Trunfo/banco_supertrunfo/
 Super_Trunfo/derby.log
+*.class
