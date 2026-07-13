@@ -4,3 +4,8 @@ derby/
 Super_Trunfo/banco_supertrunfo/
 Super_Trunfo/derby.log
 *.class
+lib
+AlunosDB
+derby.log
+.vscode/
+target/

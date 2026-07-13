@@ -1,5 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "derby/lib/derbyclient.jar"
-    ]
-}

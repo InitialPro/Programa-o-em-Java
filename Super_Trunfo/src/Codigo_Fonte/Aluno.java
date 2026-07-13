@@ -1,4 +1,4 @@
-package Super_Trunfo;
+package Super_Trunfo.src;
 
 /**
  * Classe que representa a entidade Aluno (nossa carta do Super Trunfo).

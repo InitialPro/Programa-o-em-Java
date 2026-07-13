@@ -1,4 +1,4 @@
-package Super_Trunfo;
+package Super_Trunfo.src;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

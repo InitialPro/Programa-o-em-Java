@@ -1,4 +1,4 @@
-package Super_Trunfo;
+package Super_Trunfo.src;
 
 import java.util.List;
 import java.util.Scanner;
