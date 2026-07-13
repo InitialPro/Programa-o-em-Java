@@ -2,18 +2,20 @@ package Codigo_Fonte;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Column;
 
 @Entity
 public class Aluno {
-    
+
     @Id
+    @Column(name = "matricula")
     private String matricula;
+    
     private String nome;
     private int ano;
 
-    // Construtor vazio exigido pelo JPA
-    public Aluno() {
-    }
+    // Construtor vazio obrigatório para JPA
+    public Aluno() {}
 
     public Aluno(String matricula, String nome, int ano) {
         this.matricula = matricula;
@@ -22,31 +24,15 @@ public class Aluno {
     }
 
     // Getters e Setters
-    public String getMatricula() {
-        return matricula;
-    }
+    public String getMatricula() { return matricula; }
+    public void setMatricula(String matricula) { this.matricula = matricula; }
+    
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+    
+    public int getAno() { return ano; }
+    public void setAno(int ano) { this.ano = ano; }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getAno() {
-        return ano;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-
-    // Facilita a exibição no console
     @Override
     public String toString() {
         return "Aluno [Matrícula: " + matricula + ", Nome: " + nome + ", Ano: " + ano + "]";
